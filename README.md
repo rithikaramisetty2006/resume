@@ -169,3 +169,6 @@ MIT — free to use for learning and personal projects.
 ##
 
 updated-by rithika ramisetty
+## Updates
+
+Updated by Rithika Ramisetty
