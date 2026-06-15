@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Parser — Upload</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="logo">📄</span>
+            <span>Resume Parser</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="/" class="active">Upload</a></li>
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/analytics">Analytics</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <header class="page-header">
+            <h1>Upload Resume</h1>
+            <p>Upload a PDF or DOCX resume to extract candidate details automatically.</p>
+        </header>
+
+        <!-- Upload Zone -->
+        <section class="card upload-card">
+            <div id="dropZone" class="drop-zone">
+                <div class="drop-zone-content">
+                    <span class="upload-icon">⬆</span>
+                    <p class="drop-text">Drag & drop your resume here</p>
+                    <p class="drop-subtext">or click to browse</p>
+                    <p class="file-types">Supported: PDF, DOCX (max 10 MB)</p>
+                </div>
+                <input type="file" id="fileInput" accept=".pdf,.docx" hidden>
+            </div>
+            <div id="filePreview" class="file-preview hidden">
+                <span id="fileName"></span>
+                <button id="clearFile" class="btn btn-ghost btn-sm">Remove</button>
+            </div>
+            <button id="uploadBtn" class="btn btn-primary btn-block" disabled>Parse Resume</button>
+        </section>
+
+        <!-- Loading Spinner -->
+        <div id="loading" class="loading hidden">
+            <div class="spinner"></div>
+            <p>Parsing resume…</p>
+        </div>
+
+        <!-- Error Message -->
+        <div id="errorMsg" class="alert alert-error hidden"></div>
+
+        <!-- Results Panel -->
+        <section id="resultsPanel" class="hidden">
+            <div class="results-header">
+                <h2>Parsed Results</h2>
+                <div class="score-badges">
+                    <span id="completenessBadge" class="badge badge-score"></span>
+                    <span id="gradeBadge" class="badge badge-grade"></span>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="card">
+                    <h3>Contact Information</h3>
+                    <dl class="info-list">
+                        <dt>Name</dt><dd id="resName">—</dd>
+                        <dt>Email</dt><dd id="resEmail">—</dd>
+                        <dt>Phone</dt><dd id="resPhone">—</dd>
+                    </dl>
+                </div>
+                <div class="card">
+                    <h3>Skills</h3>
+                    <div id="resSkills" class="tag-list"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Professional Summary</h3>
+                <p id="resSummary" class="summary-text"></p>
+            </div>
+
+            <div class="grid-3">
+                <div class="card">
+                    <h3>Education</h3>
+                    <ul id="resEducation" class="detail-list"></ul>
+                </div>
+                <div class="card">
+                    <h3>Experience</h3>
+                    <ul id="resExperience" class="detail-list"></ul>
+                </div>
+                <div class="card">
+                    <h3>Projects</h3>
+                    <ul id="resProjects" class="detail-list"></ul>
+                </div>
+            </div>
+
+            <div id="missingSections" class="card alert alert-warning hidden">
+                <h3>Missing Sections</h3>
+                <ul id="missingList"></ul>
+            </div>
+
+            <!-- Job Match Section -->
+            <div class="card match-section">
+                <h3>Job Match Analysis</h3>
+                <p>Paste a job description to see match score, missing skills, and improvement suggestions.</p>
+                <input type="text" id="jobTitle" class="input" placeholder="Job Title (optional)">
+                <textarea id="jobDescription" class="textarea" rows="5" placeholder="Paste job description here…"></textarea>
+                <button id="matchBtn" class="btn btn-secondary">Analyze Match</button>
+                <div id="matchResults" class="hidden match-results"></div>
+            </div>
+
+            <div class="action-bar">
+                <a id="viewDashboard" href="/dashboard" class="btn btn-primary">View in Dashboard</a>
+                <button id="downloadBtn" class="btn btn-outline">Download JSON</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Resume Parser &copy; 2025 — Built with Flask &amp; SQLite</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

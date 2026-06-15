@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Parser — Analytics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <span class="logo">📄</span>
+            <span>Resume Parser</span>
+        </div>
+        <ul class="nav-links">
+            <li><a href="/">Upload</a></li>
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/analytics" class="active">Analytics</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <header class="page-header">
+            <h1>Analytics Dashboard</h1>
+            <p>Visual insights into candidate data and skill distribution.</p>
+        </header>
+
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+            <p>Loading analytics…</p>
+        </div>
+
+        <div id="analyticsContent" class="hidden">
+            <!-- Stat Cards -->
+            <div class="stats-row">
+                <div class="stat-card">
+                    <span class="stat-value" id="totalCandidates">0</span>
+                    <span class="stat-label">Total Candidates</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="avgCompleteness">0</span>
+                    <span class="stat-label">Avg. Completeness</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-value" id="topSkillCount">0</span>
+                    <span class="stat-label">Unique Skills</span>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="grid-2">
+                <div class="card chart-card">
+                    <h3>Top Skills Distribution</h3>
+                    <div id="skillsChart" class="bar-chart"></div>
+                </div>
+                <div class="card chart-card">
+                    <h3>Monthly Uploads</h3>
+                    <div id="monthlyChart" class="bar-chart"></div>
+                </div>
+            </div>
+
+            <!-- Skills Table -->
+            <div class="card">
+                <h3>Skill Frequency Table</h3>
+                <div class="table-wrapper">
+                    <table id="skillsTable" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Skill</th>
+                                <th>Count</th>
+                                <th>Bar</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="emptyState" class="empty-state hidden">
+            <p>No data yet. <a href="/">Upload a resume</a> to see analytics.</p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>Resume Parser &copy; 2025 — Built with Flask &amp; SQLite</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/analytics.js') }}"></script>
+</body>
+</html>
